@@ -32,7 +32,7 @@ public class QBoxOpen : MonoBehaviour
                 {
                     boxSR.color = new Color(0.7f, 0.35f, 0.06f);
                     opened = true;
-                    Instantiate(collectible);
+                    Instantiate(collectible, transform);
                     break;
                 }
             }

@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - QBox
   - Mushroom
+  - Brick
   layers:
   - Default
   - TransparentFX

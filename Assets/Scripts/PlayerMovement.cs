@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     bool inAir = false;
     bool poweredUp = false;
     bool isInvincible = false;
+    bool running = false;
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -27,6 +28,18 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
+
+        if ((Input.GetKeyDown(KeyCode.LeftShift) ||  Input.GetKeyDown(KeyCode.RightShift)) && !running)
+        {
+            speed *= 2;
+            running = true;
+        }
+
+        if ((Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)) && running)
+        {
+            speed /= 2;
+            running = false;
+        }
 
         transform.position += speed * horizontalInput * Time.deltaTime * Vector3.right;
 
@@ -63,7 +76,15 @@ public class PlayerMovement : MonoBehaviour
                     inAir = false;
                     break;
                 }
+
+                if (collision.gameObject.CompareTag("Brick") && collisionContacts[i].normal == new Vector2(0, -1) && poweredUp)
+                {
+                    Destroy(collision.gameObject);
+                    break;
+                }
             }
+
+            
         }
     }
 
