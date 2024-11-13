@@ -25,9 +25,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
 
         if ((Input.GetKeyDown(KeyCode.LeftShift) ||  Input.GetKeyDown(KeyCode.RightShift)) && !running)
         {
@@ -41,10 +40,14 @@ public class PlayerMovement : MonoBehaviour
             running = false;
         }
 
-        transform.position += speed * horizontalInput * Time.deltaTime * Vector3.right;
-
         Jump();
 
+    }
+
+    private void FixedUpdate()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        transform.position += speed * horizontalInput * Time.deltaTime * Vector3.right;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
